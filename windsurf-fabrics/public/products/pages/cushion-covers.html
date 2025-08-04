@@ -233,8 +233,8 @@ function loadProductImages(folder, title) {
     
     // Create gallery items for each image
     imageFiles.forEach((filename, index) => {
-        // Updated path to match the actual folder structure
-        const imgPath = `../../images/fabricmart/Cushion Covers-20250720T193243Z-1-001/Cushion Covers/${filename}`.replace(/ /g, '%20');
+        // Updated path to be relative to the public directory
+        const imgPath = `/images/fabricmart/Cushion%20Covers-20250720T193243Z-1-001/Cushion%20Covers/${filename}`;
         const galleryItem = document.createElement('a');
         galleryItem.href = imgPath;
         galleryItem.className = 'gallery-item';

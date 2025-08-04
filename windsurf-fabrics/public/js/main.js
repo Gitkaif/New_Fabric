@@ -1,52 +1,39 @@
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const navLinksItems = document.querySelectorAll('.nav-links li a');
-
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
-});
-
-// Close mobile menu when clicking on a nav link
-navLinksItems.forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        hamburger.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-    });
+// Simple Mobile Navigation Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    }
 });
 
 // Sticky Header on Scroll
-const header = document.querySelector('.header');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        header.classList.remove('scrolled');
-        return;
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('.header');
+    if (header) {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     }
-    
-    if (currentScroll > lastScroll && !header.classList.contains('scrolled-down')) {
-        // Scroll Down
-        header.classList.add('scrolled-down');
-        header.style.transform = 'translateY(-100%)';
-    } else if (currentScroll < lastScroll && header.classList.contains('scrolled-down')) {
-        // Scroll Up
-        header.classList.remove('scrolled-down');
-        header.style.transform = 'translateY(0)';
-    }
-    
-    header.classList.add('scrolled');
-    lastScroll = currentScroll;
 });
 
 // Smooth Scrolling for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         
         const targetId = this.getAttribute('href');
