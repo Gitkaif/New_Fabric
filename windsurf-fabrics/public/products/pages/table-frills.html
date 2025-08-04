@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table-frills Gallery - Fabric Wholesaler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .product-gallery {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .back-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin-top: 2rem;
+        }
+        
+        .back-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (Same as index.html) -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../../index.html">Fabric Wholesaler</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../../index.html#home">Home</a></li>
+                <li><a href="../../index.html#products">Products</a></li>
+                <li><a href="../../index.html#about">About</a></li>
+                <li><a href="../../index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Gallery Section -->
+    <section class="product-gallery">
+        <div class="gallery-header">
+            <h1 class="section-title" id="product-title">Product Gallery</h1>
+            <p>Browse through our collection</p>
+        </div>
+        
+        <div class="gallery-container" id="gallery-container">
+            <!-- Images will be loaded here by JavaScript -->
+        </div>
+        
+        <div class="text-center">
+            <a href="../../index.html#products" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Products
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer (Same as index.html) -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fabric Wholesaler</h3>
+                <p>Premium fabric solutions for all your event and decor needs. Quality you can trust, service you can rely on.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../../index.html#home">Home</a></li>
+                    <li><a href="../../index.html#products">Products</a></li>
+                    <li><a href="../../index.html#about">About Us</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +91 99206 97658</p>
+                <p><i class="fas fa-envelope"></i> gandhi.enterprises27@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Gandhi enterprises 
+                            Savita banquets hall 
+                            Sainath Rd, near Malad Subway, opposite laminet plus, Malad, Vijaykar Wadi Industrial, Vijaykar Wadi, Malad West, Mumbai, Maharashtra 400064
+                            
+                            </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Fabric Wholesaler. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightgallery JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+    
+    <script>
+        // Get product type from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productType = urlParams.get('type');
+        
+        // Product data mapping
+        const productData = {
+            'ipl-jersey': {
+                title: 'IPL Jersey Collection',
+                folder: 'IPL-20250720T193252Z-1-001/IPL',
+                extension: '.JPG',
+                count: 3
+            },
+            'cushion-covers': {
+                title: 'Cushion Covers',
+                folder: 'Cushion Covers-20250720T193243Z-1-001/Cushion Covers',
+                extension: '.JPG',
+                count: 25
+            },
+            'ceiling-drapes': {
+                title: 'Ceiling Drapes',
+                folder: 'celling-20250720T193228Z-1-001',
+                extension: '.JPG',
+                count: 1
+            },
+            'backdrops': {
+                title: 'Backdrops',
+                folder: 'back drop-20250720T193227Z-1-001/back drop',
+                extension: '.JPG',
+                count: 4
+            },
+            'chair-covers': {
+                title: 'Chair Covers',
+                folder: 'Chair Covers-20250721T190810Z-1-001/Chair Covers',
+                extension: '.JPG',
+                count: 115
+            },
+            'table-covers': {
+                title: 'Table Covers',
+                folder: 'Table Covers-20250721T190810Z-1-001/Table Covers',
+                extension: '.JPG',
+                count: 56
+            },
+            'chair-bows': {
+                title: 'Chair Bows',
+                folder: 'Chair Bow-20250721T190810Z-1-001/Chair Bow',
+                extension: '.JPG',
+                count: 119
+            },
+            'table-frills': {
+                title: 'Table Frills',
+                folder: 'table-frills-20250720T193302Z-1-001/Table Frill',
+                extension: '.JPG',
+                count: 33
+            }
+        };
+        
+        // Set page title and load images
+        if (productType && productData[productType]) {
+            const product = productData[productType];
+            document.getElementById('product-title').textContent = product.title;
+            document.title = `${product.title} - Fabric Wholesaler`;
+            
+            // Get all images from the folder
+            // Note: In a real implementation, you would fetch this from the server
+            // For now, we'll use a placeholder approach
+            const galleryContainer = document.getElementById('gallery-container');
+            const imageCount = product.count || 1; // Use the count from product data
+            
+            for (let i = 1; i <= imageCount; i++) {
+                const imgPath = `../../images/fabricmart/${product.folder}/${i}${product.extension || '.jpg'}`.replace(/ /g, '%20');
+                const imgElement = document.createElement('div');
+                imgElement.className = 'gallery-item';
+                imgElement.innerHTML = `
+                    <a href="${imgPath}" data-sub-html="${product.title} ${i}">
+                        <img src="${imgPath}" alt="${product.title} ${i}" 
+                             onerror="this.onerror=null; this.style.display='none';">
+                    </a>
+                `;
+                galleryContainer.appendChild(imgElement);
+            }
+            
+            // Initialize lightgallery
+            lightGallery(document.getElementById('gallery-container'), {
+                selector: '.gallery-item a',
+                download: false,
+                counter: false
+            });
+        } else {
+            // Redirect to home if product type is invalid
+            window.location.href = '../../index.html';
+        }
+        
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

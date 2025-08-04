@@ -34,10 +34,6 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 
-# Compiled files
-build/
-dist/
-
 # Cache directories
 .cache/
 .temp/
@@ -96,11 +92,9 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
-public
 
 # vuepress build output
 .vuepress/dist
