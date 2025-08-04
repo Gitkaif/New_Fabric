@@ -2,16 +2,21 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const port = 3000;
 
-// Serve static files from the project root
-app.use(express.static('.'));
+// Get port from environment or use 3000 for local development
+const port = process.env.PORT || 3000;
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve other static files from root (for backward compatibility)
+app.use(express.static(__dirname));
 
 // API endpoint to get list of images
 app.get('/api/images', (req, res) => {
-    const imagesDir = path.join(__dirname, 'public', 'images', 'fabricmart');
+    const imagesDir = path.join(__dirname, 'images');
     
-    // Read the directory (in a real app, you would check if it exists first)
+    // Read the directory
     fs.readdir(imagesDir, (err, files) => {
         if (err) {
             console.error('Error reading images directory:', err);
@@ -32,7 +37,18 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-    console.log('Press Ctrl+C to stop the server');
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
+
+// Only start the server if this file is run directly (not when imported as a module)
+if (require.main === module) {
+    app.listen(port, () => {
+        console.log(`Server is running on http://localhost:${port}`);
+    });
+}
+
+// Export the Express API for Vercel
+module.exports = app;
